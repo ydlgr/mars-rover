@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  nginx:
+    build: nginx
+    command: nginx -g "daemon off;"
+    links:
+      - php
+    ports:
+      - "8000:8000"
+  php:
+    build: php
+    volumes:
+      - ../app:/var/www
+    working_dir: /var/www
+    command: php-fpm
+    environment:
+      APP_ENV: local
+      APP_DEBUG: 'false'
+
