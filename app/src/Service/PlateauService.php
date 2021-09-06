@@ -2,17 +2,17 @@
 
 namespace App\Service;
 
+use App\Contract\PlateauInMemoryRepositoryInterface;
 use App\Entity\Plateau;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class PlateauService
 {
-    private RequestStack $requestStack;
+    private PlateauInMemoryRepositoryInterface $datastore;
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(PlateauInMemoryRepositoryInterface $datastore)
     {
-        $this->requestStack = $requestStack;
+        $this->datastore = $datastore;
     }
 
     /**
@@ -22,20 +22,22 @@ class PlateauService
     public function savePlateau(Request $request) : Plateau
     {
         $plateau = new Plateau();
+
+        $plateau->setId(1);
         $plateau->setWidth($request->get('width'));
         $plateau->setHeight($request->get('height'));
 
-        $session = $this->requestStack->getSession();
-
-        $maxId = 1;
-        if(count($session->all()) > 0)
-        {
-            $maxId = count($session->all()) + 1;
-        }
-        $plateau->setId($maxId);
-
-        $session->set('plateau' . $maxId, $plateau);
+        $this->datastore->save($plateau);
 
         return $plateau;
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function getPlateauById(int $id) : ?Plateau
+    {
+        return $this->datastore->getById($id);
     }
 }

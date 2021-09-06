@@ -21,7 +21,7 @@ trait ApiResponse
 
         //If Response is between 200-300, response body will return with 'data', else it will return with 'error'
         $errorOrDataResponse = "error";
-        if ($status > Response::HTTP_OK && $status < Response::HTTP_MULTIPLE_CHOICES) {
+        if ($status >= Response::HTTP_OK && $status <= Response::HTTP_MULTIPLE_CHOICES) {
             $errorOrDataResponse = 'data';
         }
 
@@ -29,6 +29,7 @@ trait ApiResponse
             ->setStatusCode($status)
             ->setData(
                 [
+                    'status' => $status,
                     'message' => $message,
                     $errorOrDataResponse => $data
                 ]
