@@ -1,11 +1,13 @@
 <?php
 
+
 namespace App\Tests\Functional;
+
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class PlateauServiceTest extends WebTestCase
+class RoverServiceTest extends WebTestCase
 {
     protected $client;
 
@@ -16,14 +18,16 @@ class PlateauServiceTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function test_create_plateau_with_given_parameters_width_and_height(): void
+    public function test_create_rover_with_given_parameters_x_y_direction(): void
     {
         $this->client->request(
             'POST',
-            '/plateau',
+            '/rover',
             [
-                'width' => 10,
-                'height' => 10
+                'coordinate_x' => 1,
+                'coordinate_y' => 2,
+                'direction' => "S",
+                'plateau_id' => 1
             ]);
 
         $this->assertEquals(
@@ -32,11 +36,12 @@ class PlateauServiceTest extends WebTestCase
         );
     }
 
-    public function test_show_plateau_with_given_id(): void
+
+    public function test_show_rover_with_given_id(): void
     {
         $this->client->request(
             'GET',
-            '/plateau/1'
+            '/rover/1'
         );
 
         $this->assertEquals(
@@ -44,4 +49,5 @@ class PlateauServiceTest extends WebTestCase
             $this->client->getResponse()->getStatusCode()
         );
     }
+
 }

@@ -8,5 +8,5 @@ interface PlateauInMemoryRepositoryInterface
 {
     public function save(Plateau $plateau);
 
-    public function getById($id);
+    public function getByPlateauId($id);
 }

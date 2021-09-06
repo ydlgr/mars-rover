@@ -8,11 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PlateauService
 {
-    private PlateauInMemoryRepositoryInterface $datastore;
+    private PlateauInMemoryRepositoryInterface $datastorePlateau;
 
-    public function __construct(PlateauInMemoryRepositoryInterface $datastore)
+    public function __construct(PlateauInMemoryRepositoryInterface $datastorePlateau)
     {
-        $this->datastore = $datastore;
+        $this->datastorePlateau = $datastorePlateau;
     }
 
     /**
@@ -27,7 +27,7 @@ class PlateauService
         $plateau->setWidth($request->get('width'));
         $plateau->setHeight($request->get('height'));
 
-        $this->datastore->save($plateau);
+        $this->datastorePlateau->save($plateau);
 
         return $plateau;
     }
@@ -38,6 +38,6 @@ class PlateauService
      */
     public function getPlateauById(int $id) : ?Plateau
     {
-        return $this->datastore->getById($id);
+        return $this->datastorePlateau->getByPlateauId($id);
     }
 }

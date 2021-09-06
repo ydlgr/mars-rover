@@ -7,21 +7,15 @@ use App\Entity\Plateau;
 
 class PlateauInMemoryService implements PlateauInMemoryRepositoryInterface
 {
-    public static Plateau $data;
+    public static ?Plateau $data = null;
 
-    public function save(Plateau $plateau)
+    public function save(Plateau $plateau): void
     {
         self::$data = $plateau;
     }
 
-    public function getById($id) : ?Plateau
+    public function getByPlateauId($id): ?Plateau
     {
-        $plateau = self::$data;
-
-        if($plateau->getId() !== $id){
-            return null;
-        }
-        return $plateau;
-
+        return self::$data;
     }
 }
