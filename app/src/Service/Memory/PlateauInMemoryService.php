@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Memory;
 
-use App\Contract\PlateauInMemoryRepositoryInterface;
+use App\Contract\Memory\PlateauInMemoryRepositoryInterface;
 use App\Entity\Plateau;
 
 class PlateauInMemoryService implements PlateauInMemoryRepositoryInterface

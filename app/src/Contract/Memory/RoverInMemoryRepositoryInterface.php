@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contract;
+namespace App\Contract\Memory;
 
 use App\Entity\Rover;
 

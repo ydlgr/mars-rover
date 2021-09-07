@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Memory;
 
-use App\Contract\RoverInMemoryRepositoryInterface;
+use App\Contract\Memory\RoverInMemoryRepositoryInterface;
 use App\Entity\Rover;
 
 class RoverInMemoryService implements RoverInMemoryRepositoryInterface
