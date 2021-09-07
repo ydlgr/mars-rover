@@ -2,16 +2,16 @@ version: '3.3'
 
 services:
   nginx:
-    build: nginx
+    build: docker/nginx
     command: nginx -g "daemon off;"
     links:
       - php
     ports:
       - "8000:8000"
   php:
-    build: php
+    build: docker/php
     volumes:
-      - ../app:/var/www
+      - ./app:/var/www
     working_dir: /var/www
     command: php-fpm
     environment:
