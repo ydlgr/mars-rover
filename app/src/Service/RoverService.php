@@ -2,10 +2,11 @@
 
 namespace App\Service;
 
-use App\Contract\RoverInMemoryRepositoryInterface;
+use App\Contract\Memory\RoverInMemoryRepositoryInterface;
 use App\Entity\Plateau;
 use App\Entity\Rover;
 use App\Entity\RoverCoordinates;
+use App\Helper\Direction\DirectionTypes;
 use Symfony\Component\HttpFoundation\Request;
 
 class RoverService
@@ -38,8 +39,9 @@ class RoverService
 
         /** @var Plateau $plateau */
         $plateau = $this->plateauService->getPlateauById($request->get('plateau_id'));
-
         $rover->setPlateau($plateau);
+
+        $rover->setDirection(DirectionTypes::direction($request->get('direction')));
 
         $this->datastoreRover->save($rover);
 

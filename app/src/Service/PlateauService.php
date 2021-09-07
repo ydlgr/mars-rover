@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Contract\PlateauInMemoryRepositoryInterface;
+use App\Contract\Memory\PlateauInMemoryRepositoryInterface;
 use App\Entity\Plateau;
 use Symfony\Component\HttpFoundation\Request;
 

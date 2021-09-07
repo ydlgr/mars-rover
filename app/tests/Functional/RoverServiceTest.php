@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Functional;
-
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,8 +23,8 @@ class RoverServiceTest extends WebTestCase
             '/rover',
             [
                 'coordinate_x' => 1,
-                'coordinate_y' => 2,
-                'direction' => "S",
+                'coordinate_y' => 1,
+                'direction' => "N",
                 'plateau_id' => 1
             ]);
 
@@ -35,7 +33,6 @@ class RoverServiceTest extends WebTestCase
             $this->client->getResponse()->getStatusCode()
         );
     }
-
 
     public function test_show_rover_with_given_id(): void
     {
@@ -49,5 +46,4 @@ class RoverServiceTest extends WebTestCase
             $this->client->getResponse()->getStatusCode()
         );
     }
-
 }

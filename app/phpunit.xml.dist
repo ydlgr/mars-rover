@@ -19,7 +19,9 @@
 
     <testsuites>
         <testsuite name="Mars Rover Test Suite">
-            <directory>tests</directory>
+            <file>tests/Functional/PlateauServiceTest.php</file>
+            <file>tests/Functional/RoverServiceTest.php</file>
+            <file>tests/Functional/MoveRoverServiceTest.php</file>
         </testsuite>
     </testsuites>
 
@@ -33,10 +35,4 @@
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
 
-    <!-- Run `composer require symfony/panther` before enabling this extension -->
-    <!--
-    <extensions>
-        <extension class="Symfony\Component\Panther\ServerExtension" />
-    </extensions>
-    -->
 </phpunit>
