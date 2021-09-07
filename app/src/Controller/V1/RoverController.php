@@ -16,30 +16,23 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class RoverController extends BaseController
 {
-    private RoverValidator $roverValidator;
-    private RoverService $roverService;
-    private SerializerInterface $serializer;
-
     public function __construct(
-        RoverValidator $roverValidator,
-        SerializerInterface $serializer,
-        RoverService $roverService)
+        private SerializerInterface $serializer,
+        private RoverService $roverService)
     {
-        $this->roverValidator = $roverValidator;
-        $this->roverService = $roverService;
-        $this->serializer = $serializer;
     }
 
     /**
      * @Route("/rover", name="rover_store", methods={"POST"})
      *
      * @param Request $request
+     * @param RoverValidator $roverValidator
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request, RoverValidator $roverValidator): JsonResponse
     {
         try {
-            $this->roverValidator->validate($request->request->all());
+            $roverValidator->validate($request->request->all());
 
             $rover = $this->roverService->saveRover($request);
 

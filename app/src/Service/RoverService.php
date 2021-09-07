@@ -11,15 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RoverService
 {
-    private RoverInMemoryRepositoryInterface $datastoreRover;
-    private PlateauService $plateauService;
-
     public function __construct(
-        RoverInMemoryRepositoryInterface $datastoreRover,
-        PlateauService $plateauService)
+        private RoverInMemoryRepositoryInterface $datastoreRover,
+        private PlateauService $plateauService)
     {
-        $this->datastoreRover = $datastoreRover;
-        $this->plateauService = $plateauService;
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Validator;
 
 use App\Exception\ValidationException;
+use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Positive;
@@ -25,7 +26,7 @@ class RoverValidator extends AbstractValidator
             ],
             'direction' => [
                 new NotBlank(),
-                new Type(['type' => 'string','message' => 'The value {{ value }} is not a valid {{ type }}.'])
+                new Choice(['N', 'E', 'W', 'S'])
             ],
             'plateau_id' => [
                 new NotBlank(),

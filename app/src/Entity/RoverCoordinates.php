@@ -4,13 +4,10 @@ namespace App\Entity;
 
 class RoverCoordinates
 {
-    private int $coordinateX;
-    private int $coordinateY;
-
-    public function __construct(int $coordinateX, int $coordinateY)
+    public function __construct(
+        private int $coordinateX,
+        private int $coordinateY)
     {
-        $this->coordinateX = $coordinateX;
-        $this->coordinateY = $coordinateY;
     }
 
     /**

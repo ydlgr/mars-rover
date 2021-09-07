@@ -16,30 +16,23 @@ use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class PlateauController extends BaseController
 {
-    private PlateauService $plateauService;
-    private CustomObjectNormalizer $normalizer;
-    private PlateauValidator $plateauValidator;
-
     public function __construct(
-        PlateauService $plateauService,
-        CustomObjectNormalizer $normalizer,
-        PlateauValidator $plateauValidator)
+        private PlateauService $plateauService,
+        private CustomObjectNormalizer $normalizer)
     {
-        $this->plateauService = $plateauService;
-        $this->normalizer = $normalizer;
-        $this->plateauValidator = $plateauValidator;
     }
 
     /**
      * @Route("/plateau", name="plateau_store", methods={"POST"})
      *
      * @param Request $request
+     * @param PlateauValidator $plateauValidator
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request, PlateauValidator $plateauValidator): JsonResponse
     {
         try {
-            $this->plateauValidator->validate($request->request->all());
+            $plateauValidator->validate($request->request->all());
 
             $plateau = $this->plateauService->savePlateau($request);
 

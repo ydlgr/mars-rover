@@ -15,22 +15,17 @@ class MoveRoverService
     const TURN_RIGHT = "R";
     const TURN_LEFT = "L";
 
-    private PlateauInMemoryRepositoryInterface $datastorePlateau;
-    private RoverInMemoryRepositoryInterface $datastoreRover;
-
     public function __construct(
-        PlateauInMemoryRepositoryInterface $datastorePlateau,
-        RoverInMemoryRepositoryInterface $datastoreRover)
+        private PlateauInMemoryRepositoryInterface $datastorePlateau,
+        private RoverInMemoryRepositoryInterface $datastoreRover)
     {
-        $this->datastorePlateau = $datastorePlateau;
-        $this->datastoreRover = $datastoreRover;
     }
 
     /***
      * @param Rover $rover
      * @param string $commands
      */
-    public function execute(Rover $rover, string $commands)
+    public function process(Rover $rover, string $commands)
     {
         for ($i = 0; $i < strlen($commands); $i++) {
             $commandsArray = str_split($commands);

@@ -8,11 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PlateauService
 {
-    private PlateauInMemoryRepositoryInterface $datastorePlateau;
-
-    public function __construct(PlateauInMemoryRepositoryInterface $datastorePlateau)
+    public function __construct(private PlateauInMemoryRepositoryInterface $datastorePlateau)
     {
-        $this->datastorePlateau = $datastorePlateau;
     }
 
     /**

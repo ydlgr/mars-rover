@@ -13,38 +13,30 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class MoveRoverController extends BaseController
 {
-    private MoveRoverService $moveRoverService;
-    private RoverInMemoryRepositoryInterface $datastoreRover;
-    private SerializerInterface $serializer;
-    private MoveRoverValidator $moveRoverValidator;
-
     public function __construct(
-        RoverInMemoryRepositoryInterface $datastoreRover,
-        MoveRoverService $moveRoverService,
-        SerializerInterface $serializer,
-        MoveRoverValidator $moveRoverValidator)
+        private RoverInMemoryRepositoryInterface $datastoreRover,
+        private MoveRoverService $moveRoverService,
+        private SerializerInterface $serializer)
     {
-        $this->moveRoverService = $moveRoverService;
-        $this->datastoreRover = $datastoreRover;
-        $this->serializer = $serializer;
-        $this->moveRoverValidator = $moveRoverValidator;
     }
 
     /**
      * @Route("/move", name="move", methods={"POST"})
      *
      * @param Request $request
+     * @param MoveRoverValidator $moveRoverValidator
      * @return JsonResponse
-     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @throws ExceptionInterface
      */
-    public function Move(Request $request): JsonResponse
+    public function Move(Request $request, MoveRoverValidator $moveRoverValidator): JsonResponse
     {
         try {
-            $this->moveRoverValidator->validate($request->request->all());
+            $moveRoverValidator->validate($request->request->all());
 
             $roverId = $request->get('rover_id');
             $commands = $request->get('commands');
@@ -53,7 +45,7 @@ class MoveRoverController extends BaseController
             $rover = $this->datastoreRover->getByRoverId($roverId);
 
             //execute  commands
-            $this->moveRoverService->execute($rover, $commands);
+            $this->moveRoverService->process($rover, $commands);
 
             //Set Rover's last Direction
             $rover->setDirection($rover->getDirection()->toString());
